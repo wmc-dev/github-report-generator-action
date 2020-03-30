@@ -7,7 +7,8 @@ const main = async () => {
     const inputFolder = core.getInput("input-folder");
     const outputFolder = core.getInput("output-folder");
 
-
+    console.log("__dirname: " + __dirname)
+    console.log("process.cwd(): " + process.cwd())
 
     const runOutput = execSync(`cd ./reportConverter && sh ./auto.sh`, { maxBuffer: 1024 * 1024 * 5 }).toString();
     console.log(runOutput);

@@ -11,6 +11,9 @@ inputs:
   output-folder:
     description: "Output report folder path"
     required: true
+  DEBUG:
+    description: "Activates debug logging"
+    required: false
 runs:
   using: "node12"
   main: "index.js"

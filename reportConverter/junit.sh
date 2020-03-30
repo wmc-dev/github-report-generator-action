@@ -1,10 +1,9 @@
 # $1 absolute commitDir
 
 echo "Convert Junit"
-sourcePath=`cygpath -u "$1"/raw`
+sourcePath="$1/raw"
 SCRIPT=$(readlink -f $0)
 SCRIPTPATH=`dirname $SCRIPT`
-# $2 commit id
 
 if [ "$1" = "" ] || [ ! -d $1 ] || [ ! -d $sourcePath ]; then
     (>&2 echo "invalid parameter")
@@ -19,13 +18,13 @@ if [ "$sourceFile" = "" ]; then
 fi
 
 sourceFile=`realpath "$sourceFile"`
-targetPath=`cygpath -u "$1/junit"`
+targetPath="$1/junit"
 mkdir -p $targetPath
 
-targetFile=`cygpath -u "$targetPath/index.html"`
+targetFile="$targetPath/index.html"
 targetFile=`realpath $targetFile`
 
-xunitViewer="../node_modules/xunit-viewer/bin/xunit-viewer"
+xunitViewer="$SCRIPTPATH/../node_modules/xunit-viewer/bin/xunit-viewer"
 
 if [ "$targetFile" = "" ] || [ "$sourcePath" = "" ] || [ "$sourceFile" = "" ]; then
     exit 1;

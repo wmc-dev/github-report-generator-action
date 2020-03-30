@@ -1,6 +1,5 @@
 SCRIPT=$(readlink -f $0)
 SCRIPTPATH=`dirname $SCRIPT`
-# $2 commit id
 cd $1
 
 if [ $(find ./raw -name \*.trx | wc -l) = 0 ]; then

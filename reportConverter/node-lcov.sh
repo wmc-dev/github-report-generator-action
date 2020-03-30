@@ -1,8 +1,7 @@
 # $1 absolute commitDir
-# $2 commit id
 
 echo "Convert node-lcov"
-sourcePath=`cygpath -u "$1"/raw`
+sourcePath="$1/raw"
 SCRIPT=$(readlink -f $0)
 SCRIPTPATH=`dirname $SCRIPT`
 
@@ -19,7 +18,7 @@ if [ "$sourcePath" = "" ] || [ "$sourceFile" = "" ]; then
 fi
 
 sourceFile=`realpath "$sourceFile"`
-targetPath=`cygpath -u "$1/node-lcov"`
+targetPath="$1/node-lcov"
 mkdir -p $targetPath
 
 echo "SourceFile: $sourceFile"

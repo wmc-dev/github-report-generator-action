@@ -1,16 +1,29 @@
 const core = require("@actions/core");
 const { execSync } = require("child_process");
 const { GitHub, context } = require("@actions/github");
+const path = require('path');
+const fs = require('fs');
 
 const main = async () => {
     const githubToken = core.getInput("github-token");
     const inputFolder = core.getInput("input-folder");
     const outputFolder = core.getInput("output-folder");
+    const absoluteOutputFolder = path.join(process.cwd(), outputFolder);
+    const absoluteOutputRawFolder = path.join(absoluteOutputFolder, "raw");
 
-    console.log("__dirname: " + __dirname)
-    console.log("process.cwd(): " + process.cwd())
+    if (!fs.existsSync(absoluteOutputRawFolder)) {
+        fs.mkdirSync(absoluteOutputRawFolder, { recursive: true });
+    }
 
-    const runOutput = execSync(`cd ./reportConverter && sh ./auto.sh`, { maxBuffer: 1024 * 1024 * 5 }).toString();
+    const copyOutput = execSync(`cp -r "${path.join(process.cwd(), inputFolder)}" "${absoluteOutputRawFolder}"`, {
+        maxBuffer: 1024 * 1024 * 5
+    }).toString();
+    console.log(copyOutput);
+
+    const runOutput = execSync(`sh ./auto.sh ${absoluteOutputFolder}`, {
+        maxBuffer: 1024 * 1024 * 5,
+        cwd: `${__dirname}/reportConverter`
+    }).toString();
     console.log(runOutput);
 
 };

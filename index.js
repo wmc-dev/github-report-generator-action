@@ -1,11 +1,9 @@
 const core = require("@actions/core");
 const { execSync } = require("child_process");
-const { GitHub, context } = require("@actions/github");
 const path = require('path');
 const fs = require('fs');
 
 const main = async () => {
-    const githubToken = core.getInput("github-token");
     const inputFolder = core.getInput("input-folder");
     const outputFolder = core.getInput("output-folder");
     const absoluteOutputFolder = path.join(process.cwd(), outputFolder);

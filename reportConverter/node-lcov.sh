@@ -4,6 +4,7 @@ echo "Convert node-lcov"
 sourcePath="$1/raw"
 SCRIPT=$(readlink -f $0)
 SCRIPTPATH=`dirname $SCRIPT`
+targetPath="$1/node-lcov"
 
 if [ "$1" = "" ] || [ ! -d $1 ] || [ ! -d $sourcePath ]; then
     (>&2 echo "invalid parameter")
@@ -13,20 +14,25 @@ fi
 sourceFile=$(find "$sourcePath" -type f -name node-lcov.zip | awk '{ print length, $0 }' | sort -n | cut -d" " -f2- | head -n 1)
 
 if [ "$sourcePath" = "" ] || [ "$sourceFile" = "" ]; then
-    (>&2 echo "node-lcov.zip file not found")
-    exit 1;
+    sourceDirectory=$(find "$sourcePath" -type d -name "lcov-report" | awk '{ print length, $0 }' | sort -n | cut -d" " -f2- | head -n 1)
+    if [ "$sourcePath" = "" ] || [ "$sourceDirectory" = "" ]; then
+        (>&2 echo "node-lcov.zip file or lcov-report directory not found")
+        exit 1;
+    fi
+    cp -r "$sourceDirectory" "$targetPath"
+else
+    sourceFile=`realpath "$sourceFile"`
+    
+    mkdir -p $targetPath
+    
+    echo "SourceFile: $sourceFile"
+    echo "TargetPath: $targetPath"
+    
+    echo "Extract zip"
+    unzip "$sourceFile" -d "$targetPath"
+    echo "Extract end"
 fi
 
-sourceFile=`realpath "$sourceFile"`
-targetPath="$1/node-lcov"
-mkdir -p $targetPath
-
-echo "SourceFile: $sourceFile"
-echo "TargetPath: $targetPath"
-
-echo "Extract zip"
-unzip "$sourceFile" -d "$targetPath"
-echo "Extract end"
 
 echo "Create coverage badge"
 indexFile="$targetPath/index.html"

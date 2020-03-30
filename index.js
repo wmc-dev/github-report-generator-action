@@ -15,7 +15,7 @@ const main = async () => {
         fs.mkdirSync(absoluteOutputRawFolder, { recursive: true });
     }
 
-    const copyOutput = execSync(`cp -r "${path.join(process.cwd(), inputFolder)}" "${absoluteOutputRawFolder}"`, {
+    const copyOutput = execSync(`cp -r "${path.join(process.cwd(), inputFolder)}/*" "${absoluteOutputRawFolder}"`, {
         maxBuffer: 1024 * 1024 * 5
     }).toString();
     console.log(copyOutput);

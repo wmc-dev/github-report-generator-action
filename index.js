@@ -8,10 +8,10 @@ const main = async () => {
     const outputFolder = core.getInput("output-folder");
     const debug = core.getInput("DEBUG");
     const absoluteOutputFolder = path.join(process.cwd(), outputFolder);
-    const absoluteOutputRawFolder = path.join(absoluteOutputFolder, "raw");
+    const outputRawFolder = path.join(outputFolder, "raw");
 
-    if (!fs.existsSync(absoluteOutputRawFolder)) {
-        fs.mkdirSync(absoluteOutputRawFolder, { recursive: true });
+    if (!fs.existsSync(outputRawFolder)) {
+        fs.mkdirSync(outputRawFolder, { recursive: true });
     }
 
     if (debug) {
@@ -22,7 +22,7 @@ const main = async () => {
         console.log(lsOutput);
     }
 
-    const copyOutput = execSync(`cp -r "${path.join(process.cwd(), inputFolder)}/*" "${absoluteOutputRawFolder}"`, {
+    const copyOutput = execSync(`cp -r "${inputFolder}/*" "${outputRawFolder}"`, {
         maxBuffer: 1024 * 1024 * 5
     }).toString();
     console.log(copyOutput);

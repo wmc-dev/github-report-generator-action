@@ -1,5 +1,5 @@
 const core = require("@actions/core");
-const { execSync } = require("child_process");
+const { execSync, spawnSync } = require("child_process");
 const path = require('path');
 const fs = require('fs');
 
@@ -27,12 +27,16 @@ const main = async () => {
     }).toString();
     console.log(copyOutput);
 
-    const runOutput = execSync(`sh ./auto.sh '${absoluteOutputFolder}'`, {
+    out = spawnSync('sh', ['auto.sh',`${absoluteOutputFolder}`], {
         maxBuffer: 1024 * 1024 * 5,
         cwd: `${__dirname}/reportConverter`
-    }).toString();
-    console.log(runOutput);
-
+    });
+    console.log('status: ' + out.status);
+    console.log('stdout: ' + out.stdout.toString('utf8'));
+    console.log('stderr: ' + out.stderr.toString('utf8'));
+    console.log();
+    if(out.status !== 0)
+        throw new Error(out.stderr.toString('utf8'))
 };
 
 main().catch(err => core.setFailed(err.message));

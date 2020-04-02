@@ -5,6 +5,7 @@ SCRIPTPATH=`dirname $SCRIPT`
 cd $1
 
 if [ $(find ./raw -name \*.coverage | wc -l) = 0 ]; then
+    echo "No coverage files were found under raw.";
     exit 1;
 fi
 

@@ -1,13 +1,8 @@
-
-exit 0;
-# TODO Update script for github
-
 IFS=$'\n'
-
-
 
 SCRIPT=$(readlink -f $0)
 SCRIPTPATH=`dirname $SCRIPT`
+SOURCE_DIRECTORY="$2"
 cd $1
 
 if [ $(find ./raw -name \*.coverage | wc -l) = 0 ]; then
@@ -50,13 +45,8 @@ fi
 
 sourceCodeDirectory=$tmpSourcePath$reportId
 
-git clone -n http://gitlab-ci-token:$gitlab_token@ulm-gitlab/${reportId//\\//}.git $sourceCodeDirectory
-pwdTmp=$PWD
-cd $sourceCodeDirectory
-git config --local advice.detachedHead false
-git checkout $commitId
-cd $pwdTmp
-
+cp -R "$SOURCE_DIRECTORY" "$sourceCodeDirectory"
+ls -la "$sourceCodeDirectory"
 
 $SCRIPTPATH/cov/ReportGenerator/ReportGenerator.exe -reports:'./cov/*.xml' "-assemblyfilters:$report_assemblyfilters" -reporttypes:"HtmlInline;Badges" -targetdir:./cov/
 

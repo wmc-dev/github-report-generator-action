@@ -7,7 +7,8 @@ const main = async () => {
     const inputFolder = core.getInput("input-folder");
     const outputFolder = core.getInput("output-folder");
     const debug = core.getInput("DEBUG");
-    const absoluteOutputFolder = path.join(process.cwd(), outputFolder);
+    const sourceDirectory = process.cwd();
+    const absoluteOutputFolder = path.join(sourceDirectory, outputFolder);
     const absoluteOutputRawFolder = path.join(absoluteOutputFolder, "raw");
 
     if (!fs.existsSync(absoluteOutputRawFolder)) {
@@ -27,7 +28,7 @@ const main = async () => {
     }).toString();
     console.log(copyOutput);
 
-    const runOutput = execSync(`sh ./auto.sh ${absoluteOutputFolder}`, {
+    const runOutput = execSync(`sh ./auto.sh '${absoluteOutputFolder}' '${sourceDirectory}'`, {
         maxBuffer: 1024 * 1024 * 5,
         cwd: `${__dirname}/reportConverter`
     }).toString();

@@ -1,5 +1,6 @@
 SCRIPT=$(readlink -f $0)
 SCRIPTPATH=`dirname $SCRIPT`
+
 cd $1
 
 if [ $(find ./raw -name \*.trx | wc -l) = 0 ]; then
@@ -26,4 +27,4 @@ ok=$(xmllint --xpath '//*[local-name()="Counters"]/@executed' ./index.trx)
 failed=$(xmllint --xpath '//*[local-name()="Counters"]/@failed' ./index.trx | tr -dc '0-9')
 if [ "$failed" -gt "0" ]; then colour="#E31"; else colour="#3C1"; fi
 
-"$SCRIPTPATH/../badgen.sh" "tests ${2::8}" "$ok, $failed" "" "$colour" > ./trx/badge.svg
+"$SCRIPTPATH/../helper/badgen.sh" "tests" "$ok, $failed" "" "$colour" > ./trx/badge.svg

@@ -4,7 +4,7 @@ SCRIPTPATH=`dirname $SCRIPT`
 
 set -e
 echo "Files in report raw directory"
-ls "$1/raw"
+ls -R "$1/raw"
 echo " "
 
 for f in $(find "$SCRIPTPATH" -maxdepth 1 -type f -name "cov.sh"); do #"*.sh"

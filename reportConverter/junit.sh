@@ -13,8 +13,8 @@ fi
 sourceFile=$(find "$sourcePath" -type f -name junit.xml | awk '{ print length, $0 }' | sort -n | cut -d" " -f2- | head -n 1)
 
 if [ "$sourceFile" = "" ]; then
-    (>&2 echo "junit.xml file not found")
-    exit 1;
+    echo "junit.xml file not found";
+    exit 0;
 fi
 
 sourceFile=`realpath "$sourceFile"`

@@ -4,7 +4,8 @@ SCRIPTPATH=`dirname $SCRIPT`
 cd $1
 
 if [ $(find ./raw -name \*.trx | wc -l) = 0 ]; then
-	exit 1;
+	echo "no trx files were found";
+	exit 0;
 fi
 
 mkdir -p trx

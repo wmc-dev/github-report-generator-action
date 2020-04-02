@@ -13,8 +13,8 @@ targetPath="$1/zip"
 sourceFile=$(find "$sourcePath" -type f -name zip.zip | awk '{ print length, $0 }' | sort -n | cut -d" " -f2- | head -n 1)
 
 if [ "$sourceFile" = "" ]; then
-    (>&2 echo "zip.zip not file found")
-    exit 1;
+    echo "zip.zip not file found";
+    exit 0;
 fi
 
 mkdir -p $targetPath

@@ -27,7 +27,7 @@ const main = async () => {
     }).toString();
     console.log(copyOutput);
 
-    out = spawnSync('sh', ['auto.sh',`${absoluteOutputFolder}`], {
+    out = spawnSync('sh', [`auto.sh '${absoluteOutputFolder}'`,], {
         maxBuffer: 1024 * 1024 * 5,
         cwd: `${__dirname}/reportConverter`
     });

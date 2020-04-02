@@ -4,6 +4,7 @@ SCRIPT=$(readlink -f $0)
 SCRIPTPATH=`dirname $SCRIPT`
 cd $1
 
+echo "curren path: $PWD"
 if [ $(find ./raw -name \*.coverage | wc -l) = 0 ]; then
     echo "No coverage files were found under raw.";
     exit 1;

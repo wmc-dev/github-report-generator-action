@@ -21,7 +21,7 @@ for i in $(find ./raw/ -name \*.coverage); do
 done
 
 echo "files in cov: "
-echo ls "$PWD/cov"
+ls "$PWD/cov"
 echo "current path: $PWD"
 
 "$SCRIPTPATH/cov/ReportGenerator/ReportGenerator.exe" -reports:'./cov/*.xml' "-assemblyfilters:$report_assemblyfilters" -reporttypes:"HtmlInline;Badges" -targetdir:./cov/

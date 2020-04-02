@@ -4,7 +4,6 @@ SCRIPT=$(readlink -f $0)
 SCRIPTPATH=`dirname $SCRIPT`
 cd $1
 
-echo "curren path: $PWD"
 if [ $(find ./raw -name \*.coverage | wc -l) = 0 ]; then
     echo "No coverage files were found under raw.";
     exit 1;
@@ -21,6 +20,8 @@ for i in $(find ./raw/ -name \*.coverage); do
     cp "$i.xml" "./cov/$(basename "$i").xml"
 done
 
+echo "files in cov: "
+echo ls "$PWD/cov"
 echo "current path: $PWD"
 
 "$SCRIPTPATH/cov/ReportGenerator/ReportGenerator.exe" -reports:'./cov/*.xml' "-assemblyfilters:$report_assemblyfilters" -reporttypes:"HtmlInline;Badges" -targetdir:./cov/

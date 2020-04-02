@@ -12,7 +12,7 @@ for f in $(find "$SCRIPTPATH" -maxdepth 1 -type f -name "cov.sh"); do #"*.sh"
         continue;
     fi
     echo `date "+%Y-%m-%d %H:%M:%S"` "RUN -> $f $1"
-    bash `$f` `$1`
+    bash "$f" "$1"
     echo `date "+%Y-%m-%d %H:%M:%S"` "FINISHED -> $f $1"
 done
 

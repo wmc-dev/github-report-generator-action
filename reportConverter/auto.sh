@@ -7,7 +7,7 @@ echo "Files in report raw directory"
 ls -R "$1/raw"
 echo " "
 
-for f in $(find "$SCRIPTPATH" -maxdepth 1 -type f -name "cov.sh"); do #"*.sh"
+for f in $(find "$SCRIPTPATH" -maxdepth 1 -type f -name "*.sh"); do
     if [ $(basename $0) = $(basename $f) ]; then
         continue;
     fi

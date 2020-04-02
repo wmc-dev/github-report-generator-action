@@ -10,7 +10,6 @@ if [ $(find ./raw -name \*.coverage | wc -l) = 0 ]; then
 fi
 
 report_assemblyfilters="-unittests.*;$(cat ./raw/.ReportGeneratorFilter 2>/dev/null)"
-echo "cov report_assemblyfilters: $report_assemblyfilters"
 
 set -e
 

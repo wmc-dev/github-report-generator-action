@@ -9,7 +9,7 @@ if [ $(find ./raw -name \*.coverage | wc -l) = 0 ]; then
     exit 1;
 fi
 
-report_assemblyfilters="-unittests.*;$(cat ./raw/.ReportGeneratorFilter 2>/dev/null)"
+report_assemblyfilters="$(cat ./raw/.ReportGeneratorFilter 2>/dev/null)"
 echo "cov report_assemblyfilters: $report_assemblyfilters"
 
 set -e
@@ -20,16 +20,11 @@ for i in $(find ./raw/ -name \*.coverage); do
     cp "$i.xml" "./cov/$(basename "$i").xml"
 done
 
-echo "files in cov: "
-ls "$PWD/cov"
-echo "current path: $PWD"
+echo "report_assemblyfilters: $report_assemblyfilters"
 
 "$SCRIPTPATH/cov/ReportGenerator/ReportGenerator.exe" -reports:'./cov/*.xml' "-assemblyfilters:$report_assemblyfilters" -reporttypes:"HtmlInline;Badges" -targetdir:./cov/
 
 mv cov/index.htm cov/index.html
-
-echo "files in cov: "
-ls "$PWD/cov"
 
 coverage=$(sed -rn 's/.*>([0-9]{1,3}(\.[0-9]+)?)%<\/text>.*/\1/p' "./cov/badge_linecoverage.svg")
 decimalCoverage=`echo "$coverage" | sed -rn 's/([0-9]+)[\.[0-9]*]?/\1/p'`

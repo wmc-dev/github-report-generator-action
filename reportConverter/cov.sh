@@ -26,6 +26,11 @@ echo "current path: $PWD"
 
 "$SCRIPTPATH/cov/ReportGenerator/ReportGenerator.exe" -reports:'./cov/*.xml' "-assemblyfilters:$report_assemblyfilters" -reporttypes:"HtmlInline;Badges" -targetdir:./cov/
 
+mv cov/index.htm cov/index.html
+
+echo "files in cov: "
+ls "$PWD/cov"
+
 coverage=$(sed -rn 's/.*>([0-9]{1,3}(\.[0-9]+)?)%<\/text>.*/\1/p' "./cov/badge_linecoverage.svg")
 decimalCoverage=`echo "$coverage" | sed -rn 's/([0-9]+)[\.[0-9]*]?/\1/p'`
 
@@ -40,5 +45,3 @@ else
 fi
 
 "$SCRIPTPATH/../badgen.sh" "coverage" "$coverage %" "$color" > "cov/badge.svg"
-
-mv cov/index.htm cov/index.html

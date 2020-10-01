@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/wmc-dev/github-report-generator-action#readme",
   "dependencies": {
-    "@actions/core": "^1.2.0",
+    "@actions/core": "^1.2.6",
     "xunit-viewer": "^6.2.1"
   }
 }

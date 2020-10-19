@@ -1,5 +1,6 @@
 # $1 absolute commitDir
 
+[[ -n "$DEBUG" ]] && set -x
 echo "Convert node-lcov"
 sourcePath="$1/raw"
 SCRIPT=$(readlink -f $0)

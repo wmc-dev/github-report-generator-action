@@ -1,5 +1,6 @@
 # $1 absolute commitDir
 
+[[ -n "$DEBUG" ]] && set -x
 echo "Extract zip"
 sourcePath="$1/raw"
 

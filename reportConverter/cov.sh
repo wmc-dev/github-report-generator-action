@@ -1,3 +1,4 @@
+[[ -n "$DEBUG" ]] && set -x
 IFS=$'\n'
 
 SCRIPT=$(readlink -f $0)

@@ -26,7 +26,13 @@ echo "report_assemblyfilters: $report_assemblyfilters"
 
 mv cov/index.htm cov/index.html
 
-coverage=$(sed -rn 's/.*>([0-9]{1,3}(\.[0-9]+)?)%<\/text>.*/\1/p' "./cov/badge_linecoverage.svg")
+COV_BADGE_FILE="./cov/badge_linecoverage.svg"
+if [ ! -f "$COV_BADGE_FILE" ]; then
+    echo "cov.sh - Coverage is empty, skip badge"
+    exit 0;
+fi
+
+coverage=$(sed -rn 's/.*>([0-9]{1,3}(\.[0-9]+)?)%<\/text>.*/\1/p' "$COV_BADGE_FILE")
 decimalCoverage=`echo "$coverage" | sed -rn 's/([0-9]+)[\.[0-9]*]?/\1/p'`
 
 if [ "$coverage" = "ERROR" ] || [ $decimalCoverage -lt 75 ]

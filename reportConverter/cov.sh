@@ -45,4 +45,4 @@ else
     color='#4c1'
 fi
 
-"$SCRIPTPATH/../badgen.sh" "coverage" "$coverage %" "$color" > "cov/badge.svg"
+"$SCRIPTPATH/../badgen.sh" "coverage" "$coverage %" "" "$color" > "cov/badge.svg"

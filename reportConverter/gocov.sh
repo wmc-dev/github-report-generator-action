@@ -3,6 +3,8 @@
 SCRIPT=$(readlink -f $0)
 SCRIPTPATH=`dirname $SCRIPT`
 
+export LC_ALL=en_US.utf8
+
 cd $1
 
 if [ ! -d "./raw/gocov" ]; then

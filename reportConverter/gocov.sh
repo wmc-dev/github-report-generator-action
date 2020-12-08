@@ -14,10 +14,10 @@ fi
 
 cp -r ./raw/gocov ./gocov/
 
-coverage=$(cat ./gocov/*.gotestlog | grep -o -P '(?<=coverage: )[0-9]*(\.[0-9]*)?(?=%)')
+coverage=$(cat ./gocov/gocoverage.log | grep total | awk '{print substr($3, 1, length($3)-1)}')
 decimalCoverage=`echo "$coverage" | sed -rn 's/([0-9]+)[\.[0-9]*]?/\1/p'`
 
-if [ "$coverage" = "ERROR" ] || [ $decimalCoverage -lt 75 ]
+if [ $decimalCoverage -lt 75 ]
 then
     color='#e05d44'
 elif [ $decimalCoverage -lt 90 ]

@@ -35,6 +35,12 @@ fi
 coverage=$(sed -rn 's/.*>([0-9]{1,3}(\.[0-9]+)?)%<\/text>.*/\1/p' "$COV_BADGE_FILE")
 decimalCoverage=`echo "$coverage" | sed -rn 's/([0-9]+)[\.[0-9]*]?/\1/p'`
 
+re='^[0-9]+$'
+if ! [[ $decimalCoverage =~ $re ]] ; then
+   #"Not a number"
+   decimalCoverage=0
+fi
+
 if [ "$coverage" = "ERROR" ] || [ $decimalCoverage -lt 75 ]
 then
     color='#e05d44'

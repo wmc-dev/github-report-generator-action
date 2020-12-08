@@ -39,6 +39,7 @@ re='^[0-9]+$'
 if ! [[ $decimalCoverage =~ $re ]] ; then
    #"Not a number"
    decimalCoverage=0
+   coverage=0
 fi
 
 if [ "$coverage" = "ERROR" ] || [ $decimalCoverage -lt 75 ]

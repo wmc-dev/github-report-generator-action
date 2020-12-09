@@ -25,9 +25,15 @@ fi
 $SCRIPTPATH/trx/TrxerConsole.exe index.trx
 
 mv index.trx.html ./trx/index.html
+mv index.trx ./trx/index.trx
 
-ok=$(xmllint --xpath '//*[local-name()="Counters"]/@executed' ./index.trx)
-failed=$(xmllint --xpath '//*[local-name()="Counters"]/@failed' ./index.trx | tr -dc '0-9')
+# fix statusbar style
+sed -i 's/.statusBarPassedInner {/.statusBarCompletedInner center h1{ color: black; }\n.statusBarPassedInner {/g' ./trx/index.html
+# replace header
+#sed -i 's/ContainerAdministrator@[A-Z0-9]*/bla /g' ./trx/index.html
+
+ok=$(xmllint --xpath '//*[local-name()="Counters"]/@executed' ./trx/index.trx)
+failed=$(xmllint --xpath '//*[local-name()="Counters"]/@failed' ./trx/index.trx | tr -dc '0-9')
 if [ "$failed" -gt "0" ]; then colour="#E31"; else colour="#3C1"; fi
 
 "$SCRIPTPATH/../badgen.sh" "tests" "$ok, $failed" "" "$colour" > ./trx/badge.svg

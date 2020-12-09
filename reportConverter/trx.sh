@@ -30,7 +30,14 @@ mv index.trx ./trx/index.trx
 # fix statusbar style
 sed -i 's/.statusBarPassedInner {/.statusBarCompletedInner center h1{ color: black; }\n.statusBarPassedInner {/g' ./trx/index.html
 # replace header
-#sed -i 's/ContainerAdministrator@[A-Z0-9]*/bla /g' ./trx/index.html
+if [ -f "./raw/job_name" ] && [ -f "./raw/commit_hash" ]; then
+    echo "$FILE exists."
+		ci_job_name=$(cat ./raw/job_name)
+		ci_commit_hash=$(cat ./raw/commit_hash | cut -c1-5)
+		sed -i 's/ContainerAdministrator@[A-Z0-9]*/VarStatusbarHeader/g' ./trx/index.html
+		sed -i "s|VarStatusbarHeader|$ci_job_name $ci_commit_hash -|g" ./trx/index.html
+fi
+
 
 ok=$(xmllint --xpath '//*[local-name()="Counters"]/@executed' ./trx/index.trx)
 failed=$(xmllint --xpath '//*[local-name()="Counters"]/@failed' ./trx/index.trx | tr -dc '0-9')

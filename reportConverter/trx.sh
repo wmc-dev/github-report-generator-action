@@ -33,7 +33,7 @@ sed -i 's/.statusBarPassedInner {/.statusBarCompletedInner center h1{ color: bla
 if [ -f "./raw/job_name" ] && [ -f "./raw/commit_hash" ]; then
     echo "$FILE exists."
 		ci_job_name=$(cat ./raw/job_name)
-		ci_commit_hash=$(cat ./raw/commit_hash | cut -c1-5)
+		ci_commit_hash=$(cat ./raw/commit_hash | cut -c1-10)
 		sed -i 's/ContainerAdministrator@[A-Z0-9]*/VarStatusbarHeader/g' ./trx/index.html
 		sed -i "s|VarStatusbarHeader|$ci_job_name $ci_commit_hash -|g" ./trx/index.html
 fi
